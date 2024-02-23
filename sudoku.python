@@ -1,0 +1,87 @@
+import os
+import math
+import random
+
+NUM = 9
+DIV = 3
+
+class square():
+    def __init__ (self,name, y, x, box, val, options):
+        self.name = name
+        self.x = x
+        self.y = y
+        self.box = box
+        self.val = val
+        self.options = options
+
+puzzle = [NUM][NUM]
+print("please enter the numbers in the sudoku puzzle row by row. \n For empty spaces, input '0'")
+
+def printPuzzle():
+    for i in range(NUM):
+        for j in range(NUM):
+            print(puzzle[i][j].value)
+
+def initPuzzle():
+    count = 0
+    for i in range(NUM):
+        for j in range(NUM):
+            value = 0
+            
+            if i < NUM/DIV:
+                row = 1
+            elif i < (NUM/DIV)*2:
+                row = 2
+            else:
+                row = 3
+            
+            if j < NUM/DIV:
+                col = 1
+            elif j < (NUM/DIV)*2:
+                col = 2
+            else:
+                col = 3
+
+            if row == 1:
+                if col == 1:
+                    box = 1
+                elif col == 2:
+                    box = 2
+                else:
+                    box = 3
+
+            if row == 2:
+                if col == 1:
+                    box = 4
+                elif col == 2:
+                    box = 5
+                else:
+                    box = 6
+            
+            if row == 3:
+                if col == 1:
+                    box = 7
+                elif col == 2:
+                    box = 8
+                else:
+                    box = 9
+            
+            options = []
+            for i in range(NUM):
+                if value != i:
+                    options.append(i)
+
+            var_name = "square_" + str(count)
+            puzzle[i][j]=square(var_name, i, j, box, value, options)
+            count+= 1
+
+def addSq():
+    for i in range(NUM):
+        for j in range(NUM):
+            sq = puzzle[i][j]
+            if sq.value == 0:
+                sq.value = int(input("value of square in row {}, column {}?".format(i, j)))
+                printPuzzle()
+
+def updateSq():
+    
